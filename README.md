@@ -29,4 +29,6 @@ Setup delete function so the user can all to delete meal
 - Sprint 5
 Setup update function to allow user to make changes to the existing post.
 - Sprint 6
+Add to Heroku 
+- Sprint 7
 Extra Stuff if we have time.
