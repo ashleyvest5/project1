@@ -15,3 +15,18 @@ Application will allow the user to create an account, log meals and track their 
 - MongoDB 
 - Nutritionix API
 
+# Sprints 
+Sprint 0
+Setup directory
+Sprint 1
+Serve and display hard coded data for test.
+Sprint 2
+Allow users to create accounts and add personalized info to their account.
+Sprint 3
+setup the create function so the user can add food
+Sprint 4
+Setup delete function so the user can all to delete meal
+Sprint 5
+Setup update function to allow user to make changes to the existing post.
+Sprint 6
+Extra Stuff if we have time.
