@@ -2,7 +2,7 @@
   "name": "project1",
   "version": "1.0.0",
   "description": "project one using MongoDB, Express, Node.js",
-  "main": "seed.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
