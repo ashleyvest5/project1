@@ -6,7 +6,7 @@ var db = require('./models');
 
 var app = express();
 
-app.use(express.static('/public'));
+app.use(express.static('public'));
 app.use(bodyParser.urlencoded({
     extended: true
 }));
@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({
 
 
 app.get('/', function index(req, res){
-  res.json('potato');
+  res.sendFile('views/index.html' , { root : __dirname});
 });
 
 
