@@ -1,44 +1,39 @@
-console.log("connected");
-
-var foodList = [{
-        foodName: 'potato',
-        calories: 1,
-    },
-    {
-        foodName: 'taco',
-        calories: 1,
-    },
-    {
-        foodName: 'pizza',
-        calories: 1,
-    },
-    {
-        foodName: 'burger',
-        calories: 1,
-    }
-];
-
-
 $(document).ready(function() {
-
+  console.log("connected");
+  var foodList = [{
+          foodName: 'potato',
+          calories: 1,
+      },
+      {
+          foodName: 'taco',
+          calories: 1,
+      },
+      {
+          foodName: 'pizza',
+          calories: 1,
+      },
+      {
+          foodName: 'burger',
+          calories: 1,
+      }
+  ];
     $.ajax({
-        method: "GET",
-        url: "/api/food",
-        success: function onSuccess(food) {
-            food.forEach(function renderEachFood(taco) {
-
-                renderFood(taco);
-            })
-            console.log('index ajax works');
-        },
-        error: function onError(err) {
-            console.log('index ajax is not working', err);
-        }
+      method: 'GET',
+      url: '/foodList',
+      success: renderAllFood
     });
 
-});
+  function renderAllFood(food) {
+    foodList.forEach(function(food) {
+      console.log(food.foodName);
+      renderFood(food);
+    });
+  }
+
+
 
 function renderFood(food) {
+
     var foodHTML = (`
     <div class="row food">
 
@@ -68,3 +63,6 @@ function renderFood(food) {
     `);
     $('#food').prepend(foodHTML);
 };
+
+
+});
