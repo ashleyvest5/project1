@@ -97,11 +97,11 @@ app.get('/api/food', controllers.food.index);
 //create
 app.post('/api/food', controllers.food.create);
 //show
-app.get('/api/food/:id', controllers.food.show);
+app.get('/api/food/:foodId', controllers.food.show);
 //delete
-app.delete('/api/food/:id', controllers.food.destroy);
+app.delete('/api/food/:foodId', controllers.food.destroy);
 //update
-app.put('/api/food/:id', controllers.food.update);
+app.put('/api/food/:foodId', controllers.food.update);
 
 
 
