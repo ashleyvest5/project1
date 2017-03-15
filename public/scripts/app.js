@@ -39,7 +39,6 @@ $(document).ready(function() {
 });
 
 function renderFood(food) {
-    //  console.log('rendering food:', food);
     var foodHTML = (`
     <div class="row food">
 
