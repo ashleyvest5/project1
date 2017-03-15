@@ -1,34 +1,32 @@
 $(document).ready(function() {
-  console.log("connected");
-  var foodList = [{
-          foodName: 'potato',
-          calories: 1,
-      },
-      {
-          foodName: 'taco',
-          calories: 1,
-      },
-      {
-          foodName: 'pizza',
-          calories: 1,
-      },
-      {
-          foodName: 'burger',
-          calories: 1,
-      }
-  ];
+    console.log("connected");
     $.ajax({
-      method: 'GET',
-      url: '/foodList',
-      success: renderAllFood
+        method: 'GET',
+        url: '/api/food',
+        success: renderAllFood
     });
 
-  function renderAllFood(food) {
-    foodList.forEach(function(food) {
-      console.log(food.foodName);
-      renderFood(food);
+    $('.submit').on('click', function(e) {
+        e.preventDefault();
+        console.log(e);
+        console.log('button is clicked');
+        console.log($('form').serialize());
+        var data = $('form').serialize();
+        console.log('data, ', data);
+        $.post('/api/food', data, function(taco) {
+            console.log('this is the food that was added, ', taco);
+            renderFood(taco);
+        });
+        $(this).trigger("reset");
     });
-  }
+
+
+function renderAllFood(food) {
+    food.forEach(function(food) {
+        console.log(food.foodName);
+        renderFood(food);
+    });
+}
 
 
 
