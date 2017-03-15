@@ -134,6 +134,8 @@ header .header-content .header-content-inner p {
 .btn-xl {
   padding: 15px 30px;
 }
+.navbar-toggle {
+  color: gray
 .api {
   width: 400px;
 }
