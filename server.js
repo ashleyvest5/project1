@@ -37,9 +37,10 @@ passport.deserializeUser(User.deserializeUser());
 //=============
 
 
-app.get("/foodList", isLoggedIn, function(req, res) {
+app.get("/foodList", function(req, res) {
     res.render("foodList");
-})
+});
+//add isLoggedIn after /foodList
 
 app.get("/register", function registerUser(req, res) {
     res.render("register");
@@ -85,7 +86,7 @@ function isLoggedIn(req, res, next) {
 //=============
 
 //=============
-// JSON
+// API ROUTES
 //=============
 
 app.get('/', function index(req, res) {
@@ -112,11 +113,24 @@ app.delete('/api/food/:foodId', controllers.food.destroy);
 //update
 app.put('/api/food/:foodId', controllers.food.update);
 
+//=============
+// API ROUTES
+//=============
+
+//=============
+// FOOD ROUTES
+//=============
 
 
+app.get('/foodList', controllers.food.index);
+
+//create
+app.post('/foodList', controllers.food.create);
 
 
-
+//=============
+// SERVER
+//=============
 
 app.listen(process.env.PORT || 3000, function() {
     console.log('project 1 is serving on 3000');

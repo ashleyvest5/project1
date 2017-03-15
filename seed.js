@@ -22,7 +22,7 @@ var foodList = [{
 Food.remove({}, function(err, food) {
     Food.create(foodList, function(err, food) {
         if (err) {
-            return console.log('ERROR', err);
+            return console.log('something is broken ', err);
         }
         console.log("all food:", food);
         console.log("created", food.length, "food");
