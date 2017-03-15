@@ -31,11 +31,12 @@ passport.deserializeUser(User.deserializeUser());
 //=============
 
 
-app.get('/', function index(req, res) {
-    res.sendFile('views/index.html', {
-        root: __dirname
-    });
-});
+
+//=============
+// Auth Start
+//=============
+
+
 app.get("/userMainPage", isLoggedIn, function(req, res) {
     res.render("userMainPage");
 })
@@ -63,7 +64,7 @@ app.get("/login", function(req, res) {
     res.render("login");
 });
 
-app.post("login", passport.authenticate("loca", {
+app.post("/login", passport.authenticate("local", {
     successRedirect: "/userMainPage",
     failureRedirect: "/login"
 }), function(req, res) {});
@@ -79,7 +80,28 @@ function isLoggedIn(req, res, next) {
     }
     res.redirect("/login");
 }
+//=============
+// Auth End
+//=============
 
+app.get('/', function index(req, res) {
+  res.sendFile('views/index.html', {
+    root: __dirname
+  });
+});
+
+//index
+app.get('/api', controllers.api.index);
+app.get('/api/food', controllers.food.index);
+
+//create
+app.post('/api/food', controllers.food.create);
+//show
+app.get('/api/food/:id', controllers.food.show);
+//delete
+app.delete('/api/food/:id', controllers.food.destroy);
+//update
+app.put('/api/food/:id', controllers.food.update);
 
 
 
@@ -88,5 +110,5 @@ function isLoggedIn(req, res, next) {
 
 
 app.listen(process.env.PORT || 3000, function() {
-    console.log('project 1 is serving');
+    console.log('project 1 is serving on 3000');
 });
