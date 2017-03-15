@@ -135,5 +135,7 @@ header .header-content .header-content-inner p {
   padding: 15px 30px;
 }
 .navbar-toggle {
-  color: gray;
+  color: gray
+.api {
+  width: 400px;
 }

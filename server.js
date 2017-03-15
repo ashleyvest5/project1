@@ -37,8 +37,8 @@ passport.deserializeUser(User.deserializeUser());
 //=============
 
 
-app.get("/userMainPage", isLoggedIn, function(req, res) {
-    res.render("userMainPage");
+app.get("/foodList", isLoggedIn, function(req, res) {
+    res.render("foodList");
 })
 
 app.get("/register", function registerUser(req, res) {
@@ -55,7 +55,7 @@ app.post("/register", function(req, res) {
             res.render("register");
         }
         passport.authenticate("local")(req, res, function() {
-            res.redirect("/userMainPage");
+            res.redirect("/foodList");
         })
     });
 });
@@ -65,7 +65,7 @@ app.get("/login", function(req, res) {
 });
 
 app.post("/login", passport.authenticate("local", {
-    successRedirect: "/userMainPage",
+    successRedirect: "/foodList",
     failureRedirect: "/login"
 }), function(req, res) {});
 
@@ -84,8 +84,17 @@ function isLoggedIn(req, res, next) {
 // Auth End
 //=============
 
+//=============
+// JSON
+//=============
+
 app.get('/', function index(req, res) {
   res.sendFile('views/index.html', {
+    root: __dirname
+  });
+});
+app.get('/foodList', function index(req, res) {
+  res.sendFile('views/foodList.html', {
     root: __dirname
   });
 });
