@@ -11,31 +11,54 @@ $(document).ready(function() {
         console.log(e);
         console.log('button is clicked');
         console.log($('form').serialize());
-        var data = $('form').serialize();
-        console.log('data, ', data);
-        $.post('/api/food', data, function(taco) {
+        var foodData = $('form').serialize();
+        console.log('foodData, ', foodData);
+        $.post('/api/food', foodData, function(taco) {
             console.log('this is the food that was added, ', taco);
             renderFood(taco);
         });
-        $(this).trigger("reset");
+        $('form').trigger("reset");
     });
-
-
-function renderAllFood(food) {
-    food.forEach(function(food) {
-        console.log(food.foodName);
-        renderFood(food);
+    //=======
+    $('.food').on('click', function(e) {
+        e.preventDefault();
+        console.log('it was clicked');
     });
-}
+    $('.food').on('click', handleDeleteFood);
+
+    function handleDeleteFood(e) {
+        var foodId = $(this).closest('.food').data('food-id');
+        console.log('this is data', foodId);
+        console.log('someone wants to delete food id=' + foodId);
+        $.ajax({
+            url: '/api/food/:' + foodId,
+            method: 'DELETE',
+            success: handleDeleteFoodSuccess
+        });
+    }
+
+    // callback after DELETE /api/food/:foodId
+    function handleDeleteFoodSuccess(data) {
+        var deletedFoodId = data._id;
+        console.log('removing the following food from the page:', deletedFoodId);
+        $('div[data-food-id=' + deletedFoodId + ']').remove();
+    }
+    //==========
+    function renderAllFood(food) {
+        food.forEach(function(food) {
+            console.log(food.foodName);
+            renderFood(food);
+        });
+    }
 
 
 
-function renderFood(food) {
+    function renderFood(food) {
 
-    var foodHTML = (`
+        var foodHTML = (`
     <div class="row food">
 
-      <div class="col-md-10 col-md-offset-1">
+      <div class="col-md-10 col-md-offset-1" data-food-id=${food._id}>
         <div class="panel panel-default">
           <div class="panel-body">
             <div class='row'>
@@ -53,14 +76,15 @@ function renderFood(food) {
               </div>
             </div>
             <div class='panel-footer'>
+            <button class='btn btn-danger delete-food'>Delete Food</button>
             </div>
           </div>
         </div>
       </div>
     </div>
     `);
-    $('#food').prepend(foodHTML);
-};
+        $('#food').prepend(foodHTML);
+    };
 
 
 });
