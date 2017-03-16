@@ -42,9 +42,9 @@ function destroy(req, res){
   var id = req.params.foodId;
   console.log(id);
   Food.findOneAndRemove({_id: id}, function (err, targetFood){
-    // if (err){
-    //   console.log('something is wrong with the destroy function, ', err);
-    //}
+    if (err){
+      console.log('something is wrong with the destroy function, ', err);
+    }
     console.log('deleted', targetFood);
     res.json(targetFood);
   });
