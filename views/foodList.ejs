@@ -7,11 +7,11 @@
     <!-- Bootstrap CDN -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="styles/style.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="../styles/style.css" media="screen" title="no title" charset="utf-8">
     <!-- jQuery -->
     <script src="http://code.jquery.com/jquery-2.2.2.min.js"></script>
     <!-- Custom JS -->
-    <script type="text/javascript" src="scripts/app.js"></script>
+    <script type="text/javascript" src="../scripts/app.js"></script>
     <meta charset="utf-8">
 
     <title>Foodlist</title>
@@ -52,7 +52,7 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="foodName">Food Name</label>
                             <div class="col-md-4">
-                                <input id="foodName" name="foodName" type="text" placeholder="" class="form-control input-md" required="">
+                                <input id="foodName" name="foodName" type="text" placeholder="Food" class="form-control input-md" required="">
                             </div>
                         </div>
 
@@ -60,7 +60,7 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="calories">Calories</label>
                             <div class="col-md-4">
-                                <input id="textinput" name="calories" type="text" placeholder="" class="form-control input-md">
+                                <input id="textinput" name="calories" type="text" placeholder="" class="form-control input-md" required="">
 
                             </div>
                         </div>
@@ -68,12 +68,14 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="singlebutton">Save Meal</label>
                             <div class="col-md-4">
-                                <button id="singlebutton" name="singlebutton" class="btn btn-primary submit">Submit</button>
+                                <button id="singlebutton" name="singlebutton" class="btn btn-primary submit" >Submit</button>
                             </div>
                         </div>
                     </fieldset>
-                    <div class="food" id="food">
                 </form>
+            </div>
+            <div class="foodList">
+
             </div>
         </div>
     </section>

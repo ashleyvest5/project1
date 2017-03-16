@@ -94,8 +94,8 @@ app.get('/', function index(req, res) {
     root: __dirname
   });
 });
-app.get('/foodList', function index(req, res) {
-  res.sendFile('views/foodList.html', {
+app.get('/', function index(req, res) {
+  res.sendFile('views/foodList.ejs', {
     root: __dirname
   });
 });
@@ -126,7 +126,8 @@ app.get('/foodList', controllers.food.index);
 
 //create
 app.post('/foodList', controllers.food.create);
-
+//show
+app.get('/foodList/:foodId', controllers.food.show);
 //delete
 app.delete('/foodList/:foodId', controllers.food.destroy);
 
