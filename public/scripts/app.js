@@ -6,7 +6,7 @@ $(document).ready(function() {
         success: renderAllFood
     });
 
-    $('.submit').on('click', function(e) {
+    $('.submit').on('click',function(e) {
         e.preventDefault();
         console.log(e);
         console.log('button is clicked');
@@ -19,31 +19,7 @@ $(document).ready(function() {
         });
         $('form').trigger("reset");
     });
-    //=======
-    $('.food').on('click', function(e) {
-        e.preventDefault();
-        console.log('it was clicked');
-    });
-    $('.food').on('click', handleDeleteFood);
 
-    function handleDeleteFood(e) {
-        var foodId = $(this).closest('.food').data('food-id');
-        console.log('this is data', foodId);
-        console.log('someone wants to delete food id=' + foodId);
-        $.ajax({
-            url: '/api/food/:' + foodId,
-            method: 'DELETE',
-            success: handleDeleteFoodSuccess
-        });
-    }
-
-    // callback after DELETE /api/food/:foodId
-    function handleDeleteFoodSuccess(data) {
-        var deletedFoodId = data._id;
-        console.log('removing the following food from the page:', deletedFoodId);
-        $('div[data-food-id=' + deletedFoodId + ']').remove();
-    }
-    //==========
     function renderAllFood(food) {
         food.forEach(function(food) {
             console.log(food.foodName);
@@ -53,12 +29,46 @@ $(document).ready(function() {
 
 
 
+
+    //=================================
+    // add delete here
+    //=================================
+
+
+
+    $('.foodList').on('click', '.delete-button', handleDeleteFoodClick);
+
+    function handleDeleteFoodClick(e) {
+      console.log('delete-button was clicked');
+        var foodId = $(this).closest('.food').data('food-id');
+        console.log('this is data', foodId);
+        console.log('this food is being deleted= ' + foodId);
+        $.ajax({
+            url: '/api/food/:' + foodId,
+            method: 'DELETE',
+            success: handleDeleteFoodSuccess
+        });
+    }
+
+    //callback after DELETE /api/food/:foodId
+    function handleDeleteFoodSuccess(data) {
+        var deletedFoodId = data._id;
+        console.log('removing the following food from the page:', deletedFoodId);
+        $('div[data-food-id=' + deletedFoodId + ']').remove();
+    }
+
+    //=================================
+    // delete ends here
+    //=================================
+
+
+
     function renderFood(food) {
 
         var foodHTML = (`
-    <div class="row food">
+    <div class="row food" data-food-id="${food._id}">
 
-      <div class="col-md-10 col-md-offset-1" data-food-id=${food._id}>
+      <div class="col-md-10 col-md-offset-1" >
         <div class="panel panel-default">
           <div class="panel-body">
             <div class='row'>
@@ -76,14 +86,16 @@ $(document).ready(function() {
               </div>
             </div>
             <div class='panel-footer'>
-            <button class='btn btn-danger delete-food'>Delete Food</button>
+            <div id='delete-button'>
+            <button class='btn btn-danger delete-button'>Delete Food</button>
+            </div>
             </div>
           </div>
         </div>
       </div>
     </div>
     `);
-        $('#food').prepend(foodHTML);
+        $('.foodList').prepend(foodHTML);
     };
 
 

@@ -35,6 +35,9 @@ function show(req, res){
   });
 }
 
+
+
+
 function destroy(req, res){
   Food.findOneAndRemove({_id: req.params.foodId}, function (err, foundFood){
     if (err){
@@ -44,6 +47,12 @@ function destroy(req, res){
     res.json(foundFood);
   });
 }
+
+
+
+
+
+
 function update(req, res){
   Food.findById(req.params.foodId, function (err, foundFood){
     if (err){
