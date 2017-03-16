@@ -44,7 +44,7 @@ $(document).ready(function() {
         console.log('this is data', foodId);
         console.log('this food is being deleted= ' + foodId);
         $.ajax({
-            url: '/api/food/:' + foodId,
+            url: '/api/food/' + foodId,
             method: 'DELETE',
             success: handleDeleteFoodSuccess
         });
