@@ -127,6 +127,9 @@ app.get('/foodList', controllers.food.index);
 //create
 app.post('/foodList', controllers.food.create);
 
+//delete
+app.delete('/foodList/:foodId', controllers.food.destroy);
+
 
 //=============
 // SERVER
