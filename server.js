@@ -131,6 +131,8 @@ app.get('/foodList/:foodId', controllers.food.show);
 //delete
 app.delete('/foodList/:foodId', controllers.food.destroy);
 
+app.put('/foodList/:foodId', controllers.food.update);
+
 
 //=============
 // SERVER

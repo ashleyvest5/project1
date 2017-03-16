@@ -60,10 +60,14 @@ function update(req, res){
     if (err){
       console.log('something wrong with the update function, ', err);
     }
+    console.log('this is the food ', foundFood);
     foundFood.foodName = req.body.foodName;
-    foundFood.calories = req.body.calories;
-    fonudFood.save(function(err, updatedFood){
-      if(err){console.log('could save the food. look at the food function');}
+    foundFood.calories = parseInt(req.body.calories);
+    console.log(req.body.calories);
+    console.log(foundFood.foodName);
+    foundFood.save(function(err, updatedFood){
+      console.log(foundFood);
+      if(err){console.log('could save the food. look at the update function');}
       console.log('entery changed, ', updatedFood);
       res.json(updatedFood);
     });
