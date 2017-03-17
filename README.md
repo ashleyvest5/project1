@@ -32,3 +32,13 @@ Setup update function to allow user to make changes to the existing post.
 Nutritionix API. 
 - Sprint 7
 Add to Heroku. 
+
+# Features
+- Create, view, delete and upadate food entries. 
+- Search Nutritionix API for nutrition facts. 
+- Create user, sign in and sign out. 
+
+
+# Planned Features 
+- Resolve known issues such as search results showing up twice, issues with user auth and not being able to re-edit an edited entry. 
+
