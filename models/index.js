@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
-mongoose.connect( process.env.MONGODB_URI || "YOUR CURRENT LOCALHOST DB CONNECTION STRING HERE" );
+mongoose.connect('mongodb://localhost/project1');
+
 var Food = require('./food');
 
 module.exports.Food = Food;

@@ -1,5 +1,44 @@
 $(document).ready(function() {
-    console.log("connected");
+    //========================
+    // API AJAX
+    //========================
+    $(".search-button").on('click', function getResult(e) {
+        e.preventDefault();
+        console.log('search button was clikced');
+        var inputValue = $('.meal-input').serialize();
+        console.log(inputValue);
+        var endpoint = "https://api.nutritionix.com/v1_1/search/" + inputValue + "?fields=item_name%2Citem_id%2Cbrand_name%2Cnf_calories%2Cnf_total_fat&appId=208873bd&appKey=22cc00c8ce68e588fd138cf0f594db4d";
+        $.ajax({
+            method: "GET",
+            url: endpoint, //the url of where you are searching
+            success: mealSearch,
+            error: onError
+        });
+    });
+
+    function mealSearch(inputValue) {
+        var hits = inputValue.hits;
+        hits.map(function(e) {
+            var retrievedName = e.fields.item_name,
+                retrievedCalories = e.fields.nf_calories,
+                retrievedServingSize = e.fields.nf_serving_size_qty,
+                retrievedTotalFat = e.fields.nf_total_fat;
+
+            $('.add-food-here').append(
+              '<fieldset>' +
+                '<div class="searchedMealName">' + '<h4>' + '<strong>' + 'Food Name : ' + '</strong>' + retrievedName + '</h4>' + '</div>' + '<div class="searchedCalories">' + '<h4>' + '<strong>' + 'Calories : ' + '</strong>' + retrievedCalories + '</h4>' + '</div>' +
+                '<div class="searchedMealName">' + '<h4>' + '<strong>' + 'Serving Size : ' + '</strong>' + retrievedServingSize + '</h4>' + '</div>' + '<div class="searchedMealName">' + '<h4>' + '<strong>' + 'Total Fat : ' + '</strong>' + retrievedTotalFat + '</h4>' + '</div>' + '</fieldset>'
+            );
+            $('.meal-input').empty();
+        });
+    };
+
+    function onError() {
+        console.log("something is not working fix it");
+    }
+    //========================
+    // API AJAX End
+    //========================
     $.ajax({
         method: 'GET',
         url: '/api/food',
@@ -10,14 +49,14 @@ $(document).ready(function() {
         e.preventDefault();
         console.log(e);
         console.log('button is clicked');
-        console.log($('form').serialize());
-        var foodData = $('form').serialize();
+        console.log($('.mealForm').serialize());
+        var foodData = $('.mealForm').serialize();
         console.log('foodData, ', foodData);
         $.post('/api/food', foodData, function(taco) {
             console.log('this is the food that was added, ', taco);
             renderFood(taco);
         });
-        $('form').trigger("reset");
+        $('.mealForm').trigger("reset");
     });
 
     function renderAllFood(food) {
@@ -81,15 +120,15 @@ $(document).ready(function() {
         $foodRow.find('.edit-food').toggleClass('hidden');
 
 
-    // get the food name and replace its field with an input element
-    var foodName = $foodRow.find('span.food-name').text();
-    $foodRow.find('span.food-name').html('<input class="edit-food-name" value="' + foodName + '"></input>');
+        // get the food name and replace its field with an input element
+        var foodName = $foodRow.find('span.food-name').text();
+        $foodRow.find('span.food-name').html('<input class="edit-food-name" value="' + foodName + '"></input>');
 
-    // get the calories and replace its field with an input element
-    var calories = $foodRow.find('span.calories').text();
-    $foodRow.find('span.calories').html('<input class="edit-calories" value="' + calories + '"></input>');
+        // get the calories and replace its field with an input element
+        var calories = $foodRow.find('span.calories').text();
+        $foodRow.find('span.calories').html('<input class="edit-calories" value="' + calories + '"></input>');
 
-}
+    }
     // after editing an food, when the save changes button is clicked
     function handleSaveChangesClick(e) {
         var foodId = $(this).parents('.food').data('food-id'); // $(this).closest would have worked fine too
@@ -109,18 +148,18 @@ $(document).ready(function() {
         });
 
 
-    function handleFoodUpdatedResponse(potato) {
-      console.log(potato);
-        console.log('response to update', potato);
+        function handleFoodUpdatedResponse(potato) {
+            console.log(potato);
+            console.log('response to update', potato);
 
-        var foodId = potato._id;
-        console.log(foodId);
-        // scratch this food from the page
-        $('[data-food-id=' + foodId + ']').remove();
-        // and then re-draw it with the updates ;-)
-        renderFood(data);
+            var foodId = potato._id;
+            console.log(foodId);
+            // scratch this food from the page
+            $('[data-food-id=' + foodId + ']').remove();
+            // and then re-draw it with the updates ;-)
+            renderFood(data);
+        }
     }
-  }
     //===============================
 
 

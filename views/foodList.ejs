@@ -36,13 +36,32 @@
     </nav>
     <div class="api-stuff">
         <img class="api" src="http://i.imgur.com/mmS4eZN.jpg" />
+        <h1 class="text-center">Search To Find Nutrition Facts</h1>
+        <div class="row mealSearch">
+            <div class="col-sm-4">
+                <form class="form-inline api-search">
+                    <label>Search Food</label>
+                    <input type="text" class="form-control meal-input" name="q" value="" placeholder="search food">
+                    <input type="hidden" name="208873bd" value="22cc00c8ce68e588fd138cf0f594db4d">
+                    <button type="submit" class="glyphicon glyphicon-search search-button">Search</button>
+                    <div class="add-food-here">
+
+                    </div>
+                </form>
+            </div>
+            <div class="col-sm-8">
+              <div class="add-food-here">
+
+              </div>
+            </div>
+        </div>
     </div>
 
     <section id='food-form' class="container">
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
 
-                <form class="form-horizontal">
+                <form class="form-horizontal mealForm">
                     <fieldset>
 
                         <!-- Form Name -->
@@ -68,7 +87,7 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="singlebutton">Save Meal</label>
                             <div class="col-md-4">
-                                <button id="singlebutton" name="singlebutton" class="btn btn-primary submit" >Submit</button>
+                                <button id="singlebutton" name="singlebutton" class="btn btn-primary submit">Submit</button>
                             </div>
                         </div>
                     </fieldset>
