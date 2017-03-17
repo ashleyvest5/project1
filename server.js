@@ -37,7 +37,7 @@ passport.deserializeUser(User.deserializeUser());
 //=============
 
 
-app.get("/foodList", isLoggedIn, function(req, res) {
+app.get("/foodList", function(req, res) {
     res.render("foodList");
 });
 //add isLoggedIn after /foodList

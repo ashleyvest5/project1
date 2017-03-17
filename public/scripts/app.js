@@ -25,7 +25,7 @@ $(document).ready(function() {
                 retrievedTotalFat = e.fields.nf_total_fat;
 
             $('.add-food-here').append(
-              '<fieldset>' +
+                '<fieldset>' +
                 '<div class="searchedMealName">' + '<h4>' + '<strong>' + 'Food Name : ' + '</strong>' + retrievedName + '</h4>' + '</div>' + '<div class="searchedCalories">' + '<h4>' + '<strong>' + 'Calories : ' + '</strong>' + retrievedCalories + '</h4>' + '</div>' +
                 '<div class="searchedMealName">' + '<h4>' + '<strong>' + 'Serving Size : ' + '</strong>' + retrievedServingSize + '</h4>' + '</div>' + '<div class="searchedMealName">' + '<h4>' + '<strong>' + 'Total Fat : ' + '</strong>' + retrievedTotalFat + '</h4>' + '</div>' + '</fieldset>'
             );
@@ -80,6 +80,7 @@ $(document).ready(function() {
     function handleDeleteFoodClick(e) {
         console.log('delete-button was clicked');
         var foodId = $(this).closest('.food').data('food-id');
+        console.log(this);
         console.log('this is data', foodId);
         console.log('this food is being deleted= ' + foodId);
         $.ajax({
@@ -146,12 +147,12 @@ $(document).ready(function() {
             url: '/api/food/' + foodId,
             data: data,
             success: handleFoodUpdatedResponse,
-            error : onError
+            error: onError
         });
 
-function onError (error1, error2, error3){
-  console.log('error on ajax for edit');
-}
+        function onError(error1, error2, error3) {
+            console.log('error on ajax for edit');
+        }
 
         function handleFoodUpdatedResponse(potato) {
             console.log(potato);
@@ -192,10 +193,12 @@ function onError (error1, error2, error3){
                 </ul>
               </div>
             </div>
-            <div class='panel-footer'>
-            <button class='btn btn-danger delete-button'>Delete Food</button>
-            <button class='btn btn-info edit-food'>Edit Food</button>
+            <div data-food-id="${food._id}">
+              <div class='panel-footer' data-food-id="${food._id}">
+                <button class='btn btn-danger delete-button'>Delete Food</button>
+                <button class='btn btn-info edit-food'>Edit Food</button>
                 <button class='btn btn-success save-food hidden'>Save Changes</button>
+              </div>
             </div>
           </div>
         </div>

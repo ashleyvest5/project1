@@ -134,3 +134,7 @@ header .header-content .header-content-inner p {
 .form-group1 {
   width: 50%
 }
+.scrollable {
+  height: 500px;
+  overflow-y: auto;
+}
