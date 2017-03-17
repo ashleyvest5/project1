@@ -4,6 +4,7 @@ $(document).ready(function() {
     //========================
     $(".search-button").on('click', function getResult(e) {
         e.preventDefault();
+        // Remove console.logs from production
         console.log('search button was clikced');
         var inputValue = $('.meal-input').serialize();
         console.log(inputValue);
@@ -16,7 +17,9 @@ $(document).ready(function() {
         });
     });
 
+    //TODO: Move all functions out of the document ready call
     function mealSearch(inputValue) {
+      console.log("INPUTVALUES RETURN FROM API" , inputValue)
         var hits = inputValue.hits;
         hits.map(function(e) {
             var retrievedName = e.fields.item_name,
@@ -29,12 +32,15 @@ $(document).ready(function() {
                 '<div class="searchedMealName">' + '<h4>' + '<strong>' + 'Food Name : ' + '</strong>' + retrievedName + '</h4>' + '</div>' + '<div class="searchedCalories">' + '<h4>' + '<strong>' + 'Calories : ' + '</strong>' + retrievedCalories + '</h4>' + '</div>' +
                 '<div class="searchedMealName">' + '<h4>' + '<strong>' + 'Serving Size : ' + '</strong>' + retrievedServingSize + '</h4>' + '</div>' + '<div class="searchedMealName">' + '<h4>' + '<strong>' + 'Total Fat : ' + '</strong>' + retrievedTotalFat + '</h4>' + '</div>' + '</fieldset>'
             );
+            // try trigger('reset');
             $('.meal-input').empty();
         });
     };
 
     function onError() {
         console.log("something is not working fix it");
+        console.log(e1, e2, e3);
+
     }
     //========================
     // API AJAX End
@@ -49,6 +55,7 @@ $(document).ready(function() {
         e.preventDefault();
         console.log(e);
         console.log('button is clicked');
+        // remove console logs from production
         console.log($('.mealForm').serialize());
         var foodData = $('.mealForm').serialize();
         console.log('foodData, ', foodData);
@@ -59,8 +66,8 @@ $(document).ready(function() {
         $('.mealForm').trigger("reset");
     });
 
-    function renderAllFood(food) {
-        food.forEach(function(food) {
+    function renderAllFood(foods) {
+        foods.forEach(function(food) {
             console.log(food.foodName);
             renderFood(food);
         });
@@ -78,21 +85,25 @@ $(document).ready(function() {
     $('.foodList').on('click', '.delete-button', handleDeleteFoodClick);
 
     function handleDeleteFoodClick(e) {
+        // remove console logs from production
         console.log('delete-button was clicked');
         var foodId = $(this).closest('.food').data('food-id');
         console.log(this);
         console.log('this is data', foodId);
         console.log('this food is being deleted= ' + foodId);
+        // TODO: consider extracting the url w/ foodId toa  variable.
         $.ajax({
             url: '/api/food/' + foodId,
             method: 'DELETE',
-            success: handleDeleteFoodSuccess
+            success: handleDeleteFoodSuccess,
+            error: function(){}
         });
     }
 
     //callback after DELETE /api/food/:foodId
     function handleDeleteFoodSuccess(data) {
         var deletedFoodId = data._id;
+        // remove console logs from production
         console.log('removing the following food from the page:', deletedFoodId);
         $('div[data-food-id=' + deletedFoodId + ']').remove();
     }
@@ -112,6 +123,7 @@ $(document).ready(function() {
     function handleFoodEditClick(e) {
         var $foodRow = $(this).closest('.food');
         var foodId = $foodRow.data('food-id');
+        // remove console logs from production
         console.log('edit food', foodId);
         console.log($foodRow);
 
@@ -130,6 +142,7 @@ $(document).ready(function() {
         $foodRow.find('span.calories').html('<input class="edit-calories" value="' + calories + '"></input>');
 
     }
+
     // after editing an food, when the save changes button is clicked
     function handleSaveChangesClick(e) {
         var foodId = $(this).parents('.food').data('food-id');
@@ -139,9 +152,12 @@ $(document).ready(function() {
             foodName: $foodRow.find('.edit-food-name').val(),
             calories: $foodRow.find('.edit-calories').val(),
         };
+        // remove console logs from production
         console.log('PUTing data for food', foodId, 'with data', data);
         console.log(data);
         console.log(foodId);
+
+        // todo: Extract your url to a variable and pass the variable
         $.ajax({
             method: 'PUT',
             url: '/api/food/' + foodId,
@@ -155,12 +171,14 @@ $(document).ready(function() {
         }
 
         function handleFoodUpdatedResponse(potato) {
+            // remove console logs from production
             console.log(potato);
             console.log('response to update', potato);
 
             var foodId = potato._id;
             console.log(foodId);
             // scratch this food from the page
+            //TODO: Try changing text in-place
             $('[data-food-id=' + foodId + ']').remove();
             // and then re-draw it with the updates ;-)
             renderFood(data);

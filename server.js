@@ -38,6 +38,7 @@ passport.deserializeUser(User.deserializeUser());
 
 
 app.get("/foodList", function(req, res) {
+    // TODO: consider adding user to your ejs render to make it more personal
     res.render("foodList");
 });
 //add isLoggedIn after /foodList
@@ -45,15 +46,17 @@ app.get("/foodList", function(req, res) {
 app.get("/register", function registerUser(req, res) {
     res.render("register");
 });
+
 app.post("/register", function(req, res) {
-    req.body.username
-    req.body.password
+    // req.body.username
+    // req.body.password
     User.register(new User({
         username: req.body.username
     }), req.body.password, function(err, user) {
         if (err) {
             console.log(err);
-            res.render("register");
+            // consider adding flash messages / error handling for your register page.
+            res.render("register", {message: "Incorrect email or password"});
         }
         passport.authenticate("local")(req, res, function() {
             res.redirect("/foodList");
@@ -67,6 +70,8 @@ app.get("/login", function(req, res) {
 
 app.post("/login", passport.authenticate("local", {
     successRedirect: "/foodList",
+    // TODO: are you able to send data along with this redirect? can we just failureRender?
+    // can we let the user know 'incorrect email or password'
     failureRedirect: "/login"
 }), function(req, res) {});
 
@@ -89,6 +94,7 @@ function isLoggedIn(req, res, next) {
 // API ROUTES
 //=============
 
+//NOTE: this one is up top, so it gets priority over the second one
 app.get('/', function index(req, res) {
   res.sendFile('views/index.html', {
     root: __dirname
