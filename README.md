@@ -32,5 +32,3 @@ Setup update function to allow user to make changes to the existing post.
 Nutritionix API. 
 - Sprint 7
 Add to Heroku. 
-- Sprint 8
-Extra Stuff if we have time.
