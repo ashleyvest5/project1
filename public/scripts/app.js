@@ -131,7 +131,7 @@ $(document).ready(function() {
     }
     // after editing an food, when the save changes button is clicked
     function handleSaveChangesClick(e) {
-        var foodId = $(this).parents('.food').data('food-id'); // $(this).closest would have worked fine too
+        var foodId = $(this).parents('.food').data('food-id');
         var $foodRow = $('[data-food-id=' + foodId + ']');
 
         var data = {
@@ -140,13 +140,18 @@ $(document).ready(function() {
         };
         console.log('PUTing data for food', foodId, 'with data', data);
         console.log(data);
+        console.log(foodId);
         $.ajax({
             method: 'PUT',
             url: '/api/food/' + foodId,
             data: data,
-            success: handleFoodUpdatedResponse
+            success: handleFoodUpdatedResponse,
+            error : onError
         });
 
+function onError (error1, error2, error3){
+  console.log('error on ajax for edit');
+}
 
         function handleFoodUpdatedResponse(potato) {
             console.log(potato);
