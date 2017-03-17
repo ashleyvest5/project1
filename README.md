@@ -42,4 +42,7 @@ Add to Heroku.
 # Planned Features 
 - Resolve known issues such as search results showing up twice, issues with user auth and not being able to re-edit an edited entry. 
 - Add search results from API as food entry. 
+- Search API by calories, fat content, etc...
+- Add pictures of food. 
+- Add user profile pictures. 
 
