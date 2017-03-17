@@ -46,3 +46,49 @@ Add to Heroku.
 - Add pictures of food. 
 - Add user profile pictures. 
 
+# Code 
+app.get("/foodList", isLoggedIn, function(req, res) {
+    res.render("foodList");
+});
+//add isLoggedIn after /foodList
+
+app.get("/register", function registerUser(req, res) {
+    res.render("register");
+});
+app.post("/register", function(req, res) {
+    req.body.username
+    req.body.password
+    User.register(new User({
+        username: req.body.username
+    }), req.body.password, function(err, user) {
+        if (err) {
+            console.log(err);
+            res.render("register");
+        }
+        passport.authenticate("local")(req, res, function() {
+            res.redirect("/foodList");
+        })
+    });
+});
+
+app.get("/login", function(req, res) {
+    res.render("login");
+});
+
+app.post("/login", passport.authenticate("local", {
+    successRedirect: "/foodList",
+    failureRedirect: "/login"
+}), function(req, res) {});
+
+app.get("/logout", function(req, res) {
+    req.logout();
+    res.redirect("/");
+})
+
+function isLoggedIn(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    res.redirect("/login");
+}
+
